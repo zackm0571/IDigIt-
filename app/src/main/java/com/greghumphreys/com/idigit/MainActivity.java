@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import com.microsoft.windowsazure.mobileservices.*;
 
 public class MainActivity extends Activity {
@@ -23,8 +24,6 @@ public class MainActivity extends Activity {
 
         initAzureClient();
 
-        setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
-
     }
 
 
@@ -35,7 +34,11 @@ public class MainActivity extends Activity {
             client.login(MobileServiceAuthenticationProvider.Facebook, new UserAuthenticationCallback() {
                 @Override
                 public void onCompleted(MobileServiceUser user, Exception exception, ServiceFilterResponse response) {
+                    if(user != null){
+                        helpers.user = user;
+                        setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
 
+                    }
                 }
             });
         }
@@ -44,9 +47,11 @@ public class MainActivity extends Activity {
         try {
             mClient = new MobileServiceClient(
                     "https://idigitapp.azure-mobile.net/",
-                    "FfeGWKgPFGHkIwaCRpSTiToxmQJKPL61",
-                    this
-            );
+                    "FfeGWKgPFGHkIwaCRpSTiToxmQJKPL61", this);
+
+            login(mClient);
+
+
         }
 
         catch(Exception e){

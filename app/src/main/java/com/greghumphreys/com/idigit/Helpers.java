@@ -3,6 +3,8 @@ package com.greghumphreys.com.idigit;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.microsoft.windowsazure.mobileservices.MobileServiceUser;
+
 /**
  * Created by zachmathews on 4/20/15.
  */
@@ -14,6 +16,8 @@ public class Helpers {
     public static String ACCOUNT_TYPE_ID = "account_identifier";
 
     private SharedPreferences pref;
+    public MobileServiceUser user;
+
     public boolean checkForUserTypeSet(){
         return pref.getBoolean("hasSetAccountType", false);
     }
