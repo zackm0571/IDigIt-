@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_gravity="fill"
+    android:layout_height="match_parent" tools:context=".MainActivity"
+    android:background="#ff37e3ff"
+    android:weightSum="1.0"
+    android:orientation="horizontal">
+
+    <Button
+        android:layout_marginTop="50dp"
+
+        android:layout_weight="0.5"
+        android:layout_height="match_parent"
+        android:text="I am a producer"
+        android:id="@+id/producerAccountSelect"
+        android:layout_gravity="start|bottom"
+        android:layout_width="match_parent"
+        android:onClick="chooseAccountType" />
+    <Button
+
+        android:layout_marginTop="50dp"
+
+        android:layout_weight="0.5"
+        android:layout_height="match_parent"
+        android:text="I am a judge"
+        android:id="@+id/judgeAccountSelect"
+        android:layout_gravity="end|bottom"
+        android:layout_width="match_parent"
+        android:onClick="chooseAccountType" />
+</LinearLayout>
