@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.greghumphreys.com.idigit" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +20,10 @@
         <activity
             android:name=".ProductCreationActivity"
             android:label="@string/title_activity_product_creation" >
+        </activity>
+        <activity
+            android:name=".ProductViewActivity"
+            android:label="@string/title_activity_product_view" >
         </activity>
     </application>
 

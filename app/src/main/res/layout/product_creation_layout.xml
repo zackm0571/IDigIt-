@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:text="Submit Product"
         android:id="@+id/submitProductButton"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_gravity="center_horizontal|bottom"
+        android:onClick="submitProduct" />
 
 </FrameLayout>

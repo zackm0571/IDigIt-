@@ -4,21 +4,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class ProductCreationActivity extends ActionBarActivity {
+public class ProductViewActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.product_creation_layout);
+        setContentView(R.layout.activity_product_view);
     }
-
-
-    public void submitProduct(View v){
-
-    }
-
 
 }
