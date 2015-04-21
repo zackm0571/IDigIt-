@@ -18,8 +18,45 @@
         android:hint="Description" />
 
     <EditText
+        android:id="@+id/productTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginRight="75dp"
+        android:hint="Product name"
+        android:contentDescription="Product name"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="25dp" />
+
+    <Button
+        android:layout_width="108dp"
+        android:layout_height="77dp"
+        android:text="Load Product Image"
+        android:id="@+id/loadProductImageButton1"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginBottom="50dp" />
+
+    <Button
+        android:layout_width="108dp"
+        android:layout_height="77dp"
+        android:text="Load Product Image"
+        android:id="@+id/button"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp" />
+
+    <Button
+        android:layout_width="108dp"
+        android:layout_height="77dp"
+        android:text="Load Product Image"
+        android:id="@+id/button2"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginBottom="50dp" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:layout_gravity="left|top" />
+        android:text="Submit Product"
+        android:id="@+id/submitProductButton"
+        android:layout_gravity="center_horizontal|bottom" />
+
 </FrameLayout>
