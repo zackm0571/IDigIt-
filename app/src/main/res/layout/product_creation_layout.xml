@@ -14,7 +14,6 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:height="150dp"
-        android:contentDescription="Description"
         android:hint="Description" />
 
     <EditText
@@ -24,7 +23,7 @@
         android:layout_gravity="left|top"
         android:layout_marginRight="75dp"
         android:hint="Product name"
-        android:contentDescription="Product name"
+
         android:layout_marginTop="50dp"
         android:layout_marginLeft="25dp" />
 

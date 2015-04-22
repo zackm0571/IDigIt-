@@ -1,8 +1,10 @@
 package com.greghumphreys.com.idigit;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,6 +25,8 @@ public class MainActivity extends Activity {
         pref = helpers.getSharedPref(this);
 
         initAzureClient();
+
+        setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
 
     }
 
@@ -65,9 +69,11 @@ public class MainActivity extends Activity {
     public void chooseAccountType(View v){
 
         Button sender = (Button)v;
-        pref.edit().putString(Helpers.ACCOUNT_TYPE_ID, sender.getText().toString()).apply();
-        pref.edit().putBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, true).apply();
+        pref.edit().putString(Helpers.ACCOUNT_TYPE_ID, sender.getText().toString()).commit();
+        pref.edit().putBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, true).commit();
 
+
+        Log.d(sender.getText().toString(), sender.getText().toString());
         setContentView(getInitialView(true));
 
     }
@@ -79,9 +85,18 @@ public class MainActivity extends Activity {
         }
 
         else if(hasSetAccountType == true){
-            return (pref.getString(Helpers.ACCOUNT_TYPE_ID, "").equals(Helpers.ACCOUNT_TYPE_PRODUCER) ?
-                    R.layout.product_creation_layout :
-                    R.layout.activity_main);
+           String accountType = pref.getString(Helpers.ACCOUNT_TYPE_ID, "");
+
+            Log.v(accountType, accountType);
+
+           if(accountType.equals(Helpers.ACCOUNT_TYPE_PRODUCER)){
+               startActivity(new Intent(this, ProductCreationActivity.class));
+           }
+
+            else if(accountType.equals(Helpers.ACCOUNT_TYPE_JUDGER)){
+               return R.layout.activity_main;
+           }
+
 
         }
 

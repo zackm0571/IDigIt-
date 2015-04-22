@@ -19,8 +19,8 @@ public class Helpers {
     public static final String PRODUCT_TABLE_ID = "products";
 
 
-    public static final String ACCOUNT_TYPE_JUDGER = "I AM A JUDGE";
-    public static final String ACCOUNT_TYPE_PRODUCER = "I AM A PRODUCER";
+    public static final String ACCOUNT_TYPE_JUDGER = "I am a judge";
+    public static final String ACCOUNT_TYPE_PRODUCER = "I am a producer";
 
     private SharedPreferences pref;
     public MobileServiceUser user;
@@ -33,7 +33,7 @@ public class Helpers {
 
     public SharedPreferences getSharedPref(Context context){
         if(pref == null){
-            pref = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+            pref = context.getSharedPreferences(context.getPackageName() + ".prefs", Context.MODE_PRIVATE);
         }
 
         return pref;

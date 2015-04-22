@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal|top"
+        android:maxWidth="match_parent"
+        android:minHeight="200dp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/productViewTitle"
+        android:autoText="true"
+        android:textStyle="italic"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:hint="product title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/productViewDescription"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textStyle="normal"
+        android:textColor="#000000"
+        android:gravity="center_vertical|center_horizontal"
+        android:hint="product description"
+        android:layout_marginBottom="75dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I dig it!"
+        android:id="@+id/digitproductbutton"
+        android:layout_gravity="left|bottom" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Needs work"
+        android:id="@+id/needsworkproductbutton"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scrap it"
+        android:id="@+id/scrapitproductbutton"
+        android:layout_gravity="right|bottom" />
+
+</FrameLayout>

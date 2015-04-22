@@ -1,16 +1,12 @@
 package com.greghumphreys.com.idigit;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
-import com.microsoft.windowsazure.mobileservices.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.TableOperationCallback;
 
@@ -35,13 +31,13 @@ public class ProductCreationActivity extends Activity {
         Helpers helpers = Helpers.instance;
         MobileServiceClient client = helpers.mClient;
 
-        Product product = new Product();
+        Products product = new Products();
         product.productName = productTitle.getText().toString();
         product.productDescription = productDescription.getText().toString();
 
-        client.getTable(Product.class).insert(product, new TableOperationCallback<Product>() {
+        client.getTable(Products.class).insert(product, new TableOperationCallback<Products>() {
             @Override
-            public void onCompleted(Product entity, Exception exception, ServiceFilterResponse response) {
+            public void onCompleted(Products entity, Exception exception, ServiceFilterResponse response) {
 
                 if(exception == null){
                     //success
