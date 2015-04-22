@@ -39,7 +39,7 @@ public class ProductAdapter extends ArrayAdapter<Products>{
         if(view == null){
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            view = inflater.inflate(R.layout.product_detail_view);
+           // view = inflater.inflate(R.layout.product_detail_view);
 
         }
 
