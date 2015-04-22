@@ -22,6 +22,9 @@ public class Helpers {
     public static final String ACCOUNT_TYPE_JUDGER = "I am a judge";
     public static final String ACCOUNT_TYPE_PRODUCER = "I am a producer";
 
+    public static final String PULL_CATEGORIES = "categories";
+    public static final String PULL_PRODUCTS = "products";
+
     private SharedPreferences pref;
     public MobileServiceUser user;
 

@@ -1,6 +1,7 @@
 package com.greghumphreys.com.idigit;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,8 +33,8 @@ public class ProductCreationActivity extends Activity {
         MobileServiceClient client = helpers.mClient;
 
         Products product = new Products();
-        product.productName = productTitle.getText().toString();
-        product.productDescription = productDescription.getText().toString();
+        product.productname = productTitle.getText().toString();
+        product.productdescription = productDescription.getText().toString();
 
         client.getTable(Products.class).insert(product, new TableOperationCallback<Products>() {
             @Override
@@ -46,6 +47,8 @@ public class ProductCreationActivity extends Activity {
                 else{
                     Log.e("Upload Failure", exception.getMessage().toString());
                 }
+
+                startActivity(new Intent(ProductCreationActivity.this, ProductViewActivity.class));
 
             }
         });
