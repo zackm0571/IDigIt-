@@ -3,6 +3,7 @@ package com.greghumphreys.com.idigit;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceUser;
 
 /**
@@ -12,11 +13,19 @@ public class Helpers {
 
     public static final Helpers instance = new Helpers();
 
-    public static String ACCOUNT_TYPE_SELECTED_ID = "account_type_selected_bool";
-    public static String ACCOUNT_TYPE_ID = "account_identifier";
+    public static final String ACCOUNT_TYPE_SELECTED_ID = "account_type_selected_bool";
+    public static final String ACCOUNT_TYPE_ID = "account_identifier";
+
+    public static final String PRODUCT_TABLE_ID = "products";
+
+
+    public static final String ACCOUNT_TYPE_JUDGER = "I AM A JUDGE";
+    public static final String ACCOUNT_TYPE_PRODUCER = "I AM A PRODUCER";
 
     private SharedPreferences pref;
     public MobileServiceUser user;
+
+    public MobileServiceClient mClient;
 
     public boolean checkForUserTypeSet(){
         return pref.getBoolean("hasSetAccountType", false);

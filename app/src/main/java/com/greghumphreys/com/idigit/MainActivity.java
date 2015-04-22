@@ -31,7 +31,9 @@ public class MainActivity extends Activity {
     public void login(MobileServiceClient client){
 
         if(client != null){
-            client.login(MobileServiceAuthenticationProvider.Facebook, new UserAuthenticationCallback() {
+
+
+            client.login(MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, new UserAuthenticationCallback() {
                 @Override
                 public void onCompleted(MobileServiceUser user, Exception exception, ServiceFilterResponse response) {
                     if(user != null){
@@ -45,10 +47,11 @@ public class MainActivity extends Activity {
     }
     public void initAzureClient(){
         try {
-            mClient = new MobileServiceClient(
+            helpers.mClient = new MobileServiceClient(
                     "https://idigitapp.azure-mobile.net/",
                     "FfeGWKgPFGHkIwaCRpSTiToxmQJKPL61", this);
 
+            this.mClient = helpers.mClient;
             login(mClient);
 
 
@@ -65,12 +68,21 @@ public class MainActivity extends Activity {
         pref.edit().putString(Helpers.ACCOUNT_TYPE_ID, sender.getText().toString()).apply();
         pref.edit().putBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, true).apply();
 
+        setContentView(getInitialView(true));
+
     }
 
     public int getInitialView(boolean hasSetAccountType){
 
         if(!hasSetAccountType){
             return R.layout.choose_account_type_layout;
+        }
+
+        else if(hasSetAccountType == true){
+            return (pref.getString(Helpers.ACCOUNT_TYPE_ID, "").equals(Helpers.ACCOUNT_TYPE_PRODUCER) ?
+                    R.layout.product_creation_layout :
+                    R.layout.activity_main);
+
         }
 
         return R.layout.activity_main;
