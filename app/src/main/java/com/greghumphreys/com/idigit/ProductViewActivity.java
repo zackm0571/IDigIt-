@@ -1,13 +1,14 @@
 package com.greghumphreys.com.idigit;
 
 
-import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
+import android.widget.ListView;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceQuery;
@@ -19,18 +20,19 @@ import com.microsoft.windowsazure.mobileservices.TableQueryCallback;
 import java.util.List;
 
 
-public class ProductViewActivity extends ListActivity {
+public class ProductViewActivity extends ActionBarActivity {
 
 
     private MobileServiceTable<Products> productTable;
     private ProductAdapter adapter;
+    private ListView productList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_product_view);
 
-
+        productList = (ListView)findViewById(R.id.listView);
         setData();
       //  this.setListAdapter(new ProductAdapter(this, R.layout.product_detail_view, ));
 
@@ -50,14 +52,7 @@ public class ProductViewActivity extends ListActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        if(featureId == R.id.add_product){
 
-        }
-
-        return super.onMenuItemSelected(featureId, item);
-    }
 
     protected void setData(){
         MobileServiceClient client = Helpers.instance.mClient;
@@ -91,7 +86,7 @@ public class ProductViewActivity extends ListActivity {
                                             R.layout.product_detail_view, products);
 
 
-                                    ProductViewActivity.this.setListAdapter(adapter);
+                                    productList.setAdapter(adapter);
                                 }
                             });
                         }
