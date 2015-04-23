@@ -27,11 +27,11 @@
         </activity>
         <activity
             android:name=".ProductCreationActivity"
-            android:label="@string/title_activity_product_creation" >
+            android:label="I Dig It!" >
         </activity>
         <activity
             android:name=".ProductViewActivity"
-            android:label="@string/title_activity_product_view"
+            android:label="I Dig It!"
 
             >
         </activity>

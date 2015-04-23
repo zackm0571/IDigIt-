@@ -1,16 +1,13 @@
 package com.greghumphreys.com.idigit;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -21,9 +18,6 @@ import android.widget.Toast;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.TableOperationCallback;
-
-import java.io.File;
-import java.util.Calendar;
 
 
 public class ProductCreationActivity extends Activity {
@@ -79,29 +73,20 @@ public class ProductCreationActivity extends Activity {
     String path;
     public void takePhoto()
     {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File folder = new File(Environment.getExternalStorageDirectory() + "/LoadImg");
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        if(!folder.exists())
-        {
-            folder.mkdir();
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, 2);
         }
-        final Calendar c = Calendar.getInstance();
-        String new_Date= c.get(Calendar.DAY_OF_MONTH)+"-"+((c.get(Calendar.MONTH))+1)   +"-"+c.get(Calendar.YEAR) +" " + c.get(Calendar.HOUR) + "-" + c.get(Calendar.MINUTE)+ "-"+ c.get(Calendar.SECOND);
-
-       path =String.format(Environment.getExternalStorageDirectory() +"/IDigIt!/%s.png","IDigIt!("+new_Date+")");
-        File photo = new File(path);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-        startActivityForResult(intent, 2);
     }
 
 
 
     public class GetImage extends AsyncTask<Void, Void, Void> {
-        public ProgressDialog progDialog = null;
+       // public ProgressDialog progDialog = null;
         Bitmap productImg;
         protected void onPreExecute() {
-            progDialog = ProgressDialog.show(ProductCreationActivity.this, "", "Loading...", true);
+//            progDialog = ProgressDialog.show(ProductCreationActivity.this, "", "Loading...", true);
         }
 
         @Override
@@ -115,9 +100,9 @@ public class ProductCreationActivity extends Activity {
         }
 
         protected void onPostExecute(Void result) {
-            if (progDialog.isShowing()) {
-                progDialog.dismiss();
-            }
+//            if (progDialog.isShowing()) {
+//                progDialog.dismiss();
+//            }
 
             if(productImg != null) {
                 Drawable d = new BitmapDrawable(ProductCreationActivity.this.getResources(), productImg);
@@ -140,11 +125,18 @@ public class ProductCreationActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        if(requestCode==2)
+        if(requestCode==2 && resultCode == RESULT_OK)
         {
             Log.v("Load Image", "Camera File Path=====>>>"+path);
 
-            new GetImage().execute();
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            Button btn = (Button) findViewById(R.id.loadProductImageButton1);
+            btn.setBackground(new BitmapDrawable(getResources(), imageBitmap));
+
         }
-    }
+            //new GetImage().execute();
+      }
+
 }

@@ -43,7 +43,6 @@ public class MainActivity extends Activity {
 
         if(client != null){
 
-
             client.login(MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory, new UserAuthenticationCallback() {
                 @Override
                 public void onCompleted(MobileServiceUser user, Exception exception, ServiceFilterResponse response) {

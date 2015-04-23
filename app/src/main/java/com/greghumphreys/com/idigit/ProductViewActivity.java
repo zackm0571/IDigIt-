@@ -1,12 +1,13 @@
 package com.greghumphreys.com.idigit;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
-
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -49,8 +50,17 @@ public class ProductViewActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_product_view, menu);
+
+        menu.findItem(R.id.add_product).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(ProductViewActivity.this, ProductCreationActivity.class));
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
+
 
 
 
