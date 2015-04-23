@@ -4,7 +4,9 @@ package com.greghumphreys.com.idigit;
 import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toolbar;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceQuery;
@@ -25,14 +27,31 @@ public class ProductViewActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toolbar toolbar = new Toolbar(this);
+        toolbar.
 
+        this.setActionBar();
         setData();
       //  this.setListAdapter(new ProductAdapter(this, R.layout.product_detail_view, ));
 
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        getMenuInflater().inflate(R.menu.menu_product_view, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if(featureId == R.id.add_product){
+            
+        }
+
+        return super.onMenuItemSelected(featureId, item);
+    }
 
     protected void setData(){
         MobileServiceClient client = Helpers.instance.mClient;
