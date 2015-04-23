@@ -4,9 +4,10 @@ package com.greghumphreys.com.idigit;
 import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toolbar;
+import android.view.View;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceQuery;
@@ -26,16 +27,21 @@ public class ProductViewActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Toolbar toolbar = new Toolbar(this);
-       // toolbar.
 
-        this.setActionBar();
+        super.onCreate(savedInstanceState);
+
+
         setData();
       //  this.setListAdapter(new ProductAdapter(this, R.layout.product_detail_view, ));
 
     }
 
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.menu_product_view, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

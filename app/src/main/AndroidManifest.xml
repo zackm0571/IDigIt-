@@ -31,7 +31,9 @@
         </activity>
         <activity
             android:name=".ProductViewActivity"
-            android:label="@string/title_activity_product_view" >
+            android:label="@string/title_activity_product_view"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            >
         </activity>
     </application>
 

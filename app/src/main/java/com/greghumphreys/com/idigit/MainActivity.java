@@ -21,6 +21,8 @@ public class MainActivity extends Activity {
 
     private MobileServiceClient mClient;
 
+    private Intent viewProductsIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +30,10 @@ public class MainActivity extends Activity {
         helpers = Helpers.instance;
         pref = helpers.getSharedPref(this);
 
+        viewProductsIntent = new Intent(MainActivity.this, ProductViewActivity.class);
         initAzureClient();
 
-        setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
+
 
     }
 
@@ -46,7 +49,15 @@ public class MainActivity extends Activity {
                 public void onCompleted(MobileServiceUser user, Exception exception, ServiceFilterResponse response) {
                     if(user != null){
                         helpers.user = user;
-                        setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
+
+                        if(!pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)){
+                            setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
+
+                        }
+                        else {
+                            startActivity(viewProductsIntent);
+                        }
+
 
                     }
                 }
@@ -78,7 +89,7 @@ public class MainActivity extends Activity {
 
 
         Log.d(sender.getText().toString(), sender.getText().toString());
-        setContentView(getInitialView(true));
+        startActivity(viewProductsIntent);
 
     }
 
@@ -88,25 +99,8 @@ public class MainActivity extends Activity {
             return R.layout.choose_account_type_layout;
         }
 
-        else if(hasSetAccountType == true){
-           String accountType = pref.getString(Helpers.ACCOUNT_TYPE_ID, "");
-
-            Log.v(accountType, accountType);
-
-
-            startActivity(new Intent(this, ProductViewActivity.class));
-
-//           if(accountType.equals(Helpers.ACCOUNT_TYPE_PRODUCER)){
-//               startActivity(new Intent(this, ProductCreationActivity.class));
-//           }
-//
-//            else if(accountType.equals(Helpers.ACCOUNT_TYPE_JUDGER)){
-//               return R.layout.activity_main;
-//           }
-
+        else {
             this.finish();
-
-
         }
 
         return R.layout.activity_main;
