@@ -28,7 +28,7 @@ public class ProductViewActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = new Toolbar(this);
-        toolbar.
+       // toolbar.
 
         this.setActionBar();
         setData();
@@ -47,7 +47,7 @@ public class ProductViewActivity extends ListActivity {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if(featureId == R.id.add_product){
-            
+
         }
 
         return super.onMenuItemSelected(featureId, item);
