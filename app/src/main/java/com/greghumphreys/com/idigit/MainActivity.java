@@ -8,7 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.microsoft.windowsazure.mobileservices.*;
+import com.microsoft.windowsazure.mobileservices.MobileServiceAuthenticationProvider;
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.MobileServiceUser;
+import com.microsoft.windowsazure.mobileservices.ServiceFilterResponse;
+import com.microsoft.windowsazure.mobileservices.UserAuthenticationCallback;
 
 public class MainActivity extends Activity {
 
@@ -89,13 +93,18 @@ public class MainActivity extends Activity {
 
             Log.v(accountType, accountType);
 
-           if(accountType.equals(Helpers.ACCOUNT_TYPE_PRODUCER)){
-               startActivity(new Intent(this, ProductCreationActivity.class));
-           }
 
-            else if(accountType.equals(Helpers.ACCOUNT_TYPE_JUDGER)){
-               return R.layout.activity_main;
-           }
+            startActivity(new Intent(this, ProductViewActivity.class));
+
+//           if(accountType.equals(Helpers.ACCOUNT_TYPE_PRODUCER)){
+//               startActivity(new Intent(this, ProductCreationActivity.class));
+//           }
+//
+//            else if(accountType.equals(Helpers.ACCOUNT_TYPE_JUDGER)){
+//               return R.layout.activity_main;
+//           }
+
+            this.finish();
 
 
         }

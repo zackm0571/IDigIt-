@@ -25,6 +25,10 @@ public class Helpers {
     public static final String PULL_CATEGORIES = "categories";
     public static final String PULL_PRODUCTS = "products";
 
+    public static final String I_DIG_IT = "digit";
+    public static final String NEEDS_WORK = "needswork";
+    public static final String SCRAP_IT = "scrapit";
+
     private SharedPreferences pref;
     public MobileServiceUser user;
 

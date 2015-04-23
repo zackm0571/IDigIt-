@@ -1,7 +1,5 @@
 package com.greghumphreys.com.idigit;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by zachmathews on 4/21/15.
  */
@@ -13,4 +11,9 @@ public class Products {
 
     public String productname;
     public String productdescription;
+
+
+    public int digs=0;
+    public int needsworks=0;
+    public int scraps=0;
 }
