@@ -21,7 +21,10 @@ import com.microsoft.windowsazure.mobileservices.TableQueryCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Stack;
 
 
 public class ProductViewActivity extends ActionBarActivity {
@@ -130,15 +133,22 @@ public class ProductViewActivity extends ActionBarActivity {
             protected Void doInBackground(Void... params) {
                 try {
 
-                    MobileServiceQuery<TableQueryCallback<Products>> query;
-
 
                     TableQueryCallback<Products> callback = new TableQueryCallback<Products>() {
                         @Override
                         public void onCompleted(List<Products> result, int count, Exception exception, ServiceFilterResponse response) {
 
 
-                            final List<Products> products = result;
+
+                           Stack<Products> tempStack = new Stack<Products>();
+                            tempStack.addAll(result);
+
+                            List<Products> temp = new ArrayList<Products>();
+                            for(int i = 0; i < result.size(); i++){
+                                temp.add(tempStack.pop());
+                            }
+
+                            final List<Products> products = temp;
 
                             //When updating UI, logic must be run on UI thread to avoid runtime exception
                             runOnUiThread(new Runnable() {
@@ -159,10 +169,10 @@ public class ProductViewActivity extends ActionBarActivity {
 
                     if(Helpers.instance.getSharedPref(ProductViewActivity.this).getString(Helpers.ACCOUNT_TYPE_ID, "").equals(Helpers.ACCOUNT_TYPE_JUDGER)) {
                         productTable.where().field("category").eq(category).execute(callback);
-                       }
 
-                    else{
-                        productTable.where().field("userid").eq(Helpers.instance.user.getUserId()).execute(callback);
+                    } else{
+                        productTable.where().field("userid").eq(Helpers.instance.user.getUserId())
+                               .execute(callback);
                     }
                 } catch (Exception exception) {
 

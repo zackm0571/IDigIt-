@@ -88,6 +88,17 @@ public class ProductAdapter extends ArrayAdapter<Products>{
         scrapit.setText("SCRAP IT (" + product.scraps +")");
 
 
+        if(Helpers.instance.getAccountType(context).equals(Helpers.ACCOUNT_TYPE_PRODUCER)){
+            digit.setEnabled(false);
+            digit.setVisibility(View.INVISIBLE);
+
+            needsWork.setEnabled(false);
+            needsWork.setVisibility(View.INVISIBLE);
+
+            scrapit.setEnabled(false);
+            scrapit.setVisibility(View.INVISIBLE);
+        }
+
         final int pos = position;
 
 
@@ -123,52 +134,11 @@ public class ProductAdapter extends ArrayAdapter<Products>{
                 product.scraps++;
                 ((Button)v).setText("SCRAP IT (" + product.scraps +")");
                 productTable.update(product, null);
-             
+
 
             }
         });
         return view;
     }
 
-
-    protected void onProductRatedClick(final String operation, final int index){
-
-
-        new AsyncTask<Void, Void, Void>() {
-
-
-
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-
-                    //Increment respective operation on product and then push update to Azure table
-//                    Products product = objects.get(index);
-//                    if(operation.equals(Helpers.I_DIG_IT)){
-//                        product.digs++;
-//                    }
-//
-//                    else if(operation.equals(Helpers.NEEDS_WORK)){
-//                        product.needsworks++;
-//                    }
-//
-//                    else if(operation.equals(Helpers.SCRAP_IT)){
-//                        product.scraps++;
-//                    }
-
-
-                 //   productTable.update(product, null);
-
-                } catch (Exception exception) {
-
-                }
-                return null;
-            }
-        }.execute();
-
-
-
-
-    }
 }

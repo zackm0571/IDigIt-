@@ -1,5 +1,7 @@
 package com.greghumphreys.com.idigit;
 
+import java.util.Comparator;
+
 /**
  * Created by zachmathews on 4/21/15.
  */
@@ -18,4 +20,6 @@ public class Products {
     public int digs=0;
     public int needsworks=0;
     public int scraps=0;
+
+
 }
