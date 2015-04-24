@@ -8,6 +8,9 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceAuthenticationProvider;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
@@ -47,7 +50,21 @@ public class MainActivity extends Activity {
 
 
         if(Helpers.instance.user == null) {
-            initAzureClient(); //initialize Azure client and handle auth flow
+            setContentView(R.layout.activity_main);
+
+            View.OnClickListener onTitleClick = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initAzureClient();
+                }
+            };
+
+
+            ((FrameLayout) findViewById(R.id.titleBackground)).setOnClickListener(onTitleClick);
+
+            ((ImageView)findViewById(R.id.shovelImg)).setOnClickListener(onTitleClick);
+
+            ((TextView)findViewById(R.id.title)).setOnClickListener(onTitleClick);
         }
 
         else{
@@ -79,19 +96,10 @@ public class MainActivity extends Activity {
                                 if (user != null) {
                                     helpers.user = user;
 
-                                    //Check SharedPreferences if account type (producer / judge) has been selected via boolean flag
-                                  //  if (!pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)) {
-
-                                        //Account type not set, show view to select account type
-
-                                    //Set Account type chooser layout
+                                        //Set Account type chooser layout
                                         setContentView(R.layout.choose_account_type_layout);
 
-                                    //} else {
 
-                                        //Account type set, show products / categories
-
-                                    //}
                                 }
                             } else {
                                 //Initial connection failed, retry after timeout time
