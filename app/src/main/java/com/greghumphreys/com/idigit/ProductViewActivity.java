@@ -32,6 +32,11 @@ public class ProductViewActivity extends ActionBarActivity {
     private CategoryAdapter categoryAdapter;
     private ListView productList;
 
+    protected String VIEW_PRODUCTS = "products";
+    protected String VIEW_CATEGORIES = "categories";
+
+    protected String CURRENT_VIEW;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,7 @@ public class ProductViewActivity extends ActionBarActivity {
 
         productList = (ListView)findViewById(R.id.listView);
 
+        getSupportActionBar().show();
         setCategories();
     }
 
@@ -54,6 +60,17 @@ public class ProductViewActivity extends ActionBarActivity {
 
         getMenuInflater().inflate(R.menu.menu_product_view, menu);
 
+        menu.findItem(R.id.back_to_categories).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(CURRENT_VIEW.equals(VIEW_PRODUCTS)){
+                    setCategories();
+                }
+
+                return false;
+            }
+        });
+
         menu.findItem(R.id.add_product).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -67,6 +84,7 @@ public class ProductViewActivity extends ActionBarActivity {
 
     protected void setCategories(){
 
+        CURRENT_VIEW = VIEW_CATEGORIES;
         List<String> categories = Arrays.asList(Helpers.categories);
         categoryAdapter = new CategoryAdapter(ProductViewActivity.this, R.layout.category_view, categories);
         productList.setAdapter(categoryAdapter);
@@ -81,6 +99,8 @@ public class ProductViewActivity extends ActionBarActivity {
 
 
     protected void setData(final String category){
+
+        CURRENT_VIEW = VIEW_PRODUCTS;
         MobileServiceClient client = Helpers.instance.mClient;
 
         productTable = client.getTable(Products.class);
@@ -124,7 +144,7 @@ public class ProductViewActivity extends ActionBarActivity {
                 return null;
             }
         }.execute();
-        
+
 
     }
 

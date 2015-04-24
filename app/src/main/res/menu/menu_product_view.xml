@@ -3,10 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.greghumphreys.com.idigit.ProductViewActivity">
 
+    <item android:id="@+id/back_to_categories"
+        android:icon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:title="Back"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
     <item android:id="@+id/add_product"
-        android:icon="@drawable/abc_btn_radio_to_on_mtrl_015"
+        android:icon="@drawable/abc_btn_switch_to_on_mtrl_00012"
         android:title="Add product"
-        android:orderInCategory="100"/>
+
+        android:orderInCategory="200"
+        app:showAsAction="always"/>
+
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="200" app:showAsAction="never" />
+        android:orderInCategory="300" app:showAsAction="never" />
 </menu>
