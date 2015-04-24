@@ -31,19 +31,21 @@ public class ProductCreationActivity extends Activity {
 
     EditText productTitle, productDescription;
 
+    //Spinner provides a dropdown box to select category
     Spinner categoryPicker;
 
-    SpinnerAdapter spinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Sets layout from xml
         setContentView(R.layout.product_creation_layout);
 
         productTitle = (EditText)findViewById(R.id.productTitleText);
         productDescription = (EditText)findViewById(R.id.productDescriptionText);
 
 
-
+        //Initialize spinner and attach adapter to populate dropdown
         categoryPicker = (Spinner)findViewById(R.id.categoryPicker);
         ArrayAdapter<String> a =new ArrayAdapter<String>(ProductCreationActivity.this,android.R.layout.simple_spinner_item, Helpers.categories);
         a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -54,14 +56,18 @@ public class ProductCreationActivity extends Activity {
 
     public void submitProduct(View v){
 
+        //Get helper and client instance
         Helpers helpers = Helpers.instance;
         MobileServiceClient client = helpers.mClient;
 
+        //Create product by mapping fields to object
         Products product = new Products();
         product.productname = productTitle.getText().toString();
         product.productdescription = productDescription.getText().toString();
         product.category = categoryPicker.getSelectedItem().toString();
 
+
+        //Get table and insert with callback
         client.getTable(Products.class).insert(product, new TableOperationCallback<Products>() {
             @Override
             public void onCompleted(Products entity, Exception exception, ServiceFilterResponse response) {
@@ -74,6 +80,7 @@ public class ProductCreationActivity extends Activity {
                     Log.e("Upload Failure", exception.getMessage().toString());
                 }
 
+                //Starts productview activity
                 startActivity(new Intent(ProductCreationActivity.this, ProductViewActivity.class));
 
             }
@@ -137,7 +144,7 @@ public class ProductCreationActivity extends Activity {
     }
 
 
-
+//Called after startActivityForResult returns from new activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

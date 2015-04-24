@@ -101,6 +101,8 @@ public class ProductViewActivity extends ActionBarActivity {
 
 
                             final List<Products> products = result;
+
+                            //When updating UI, logic must be run on UI thread to avoid runtime exception
                             runOnUiThread(new Runnable() {
 
                                 @Override
@@ -122,14 +124,7 @@ public class ProductViewActivity extends ActionBarActivity {
                 return null;
             }
         }.execute();
-
-//        MobileServiceTable<Products> table =    client.getTable(Products.class).exe
-//      .execute(query, new TableQueryCallback<Products>() {
-//            @Override
-//            public void onCompleted(List result, int count, Exception exception, ServiceFilterResponse response) {
-//                setListAdapter(new ProductAdapter(ProductViewActivity.this, R.layout.product_detail_view, result));
-//            }
-//        });
+        
 
     }
 

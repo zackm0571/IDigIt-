@@ -5,7 +5,7 @@ package com.greghumphreys.com.idigit;
  */
 public class Products {
 
-
+//Container for product information. Azure will serialize and deserialize so long as variable names are matching on the backend
     public String Id;
 
     public String category;
