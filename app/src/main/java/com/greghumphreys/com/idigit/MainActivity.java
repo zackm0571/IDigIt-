@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
     private Runnable runLogin;
 
 
-    long loginTimeOut = 1000;
+    long loginTimeOut = 500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
                                     }
                                 }
                             } else {
-                                Toast.makeText(MainActivity.this, "Connection failed: retrying", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(MainActivity.this, "Connection failed: retrying", Toast.LENGTH_LONG).show();
                                 retryLogin.postDelayed(runLogin, loginTimeOut);
 
                             }
