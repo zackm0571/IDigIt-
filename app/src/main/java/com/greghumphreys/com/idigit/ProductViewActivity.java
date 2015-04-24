@@ -81,13 +81,19 @@ public class ProductViewActivity extends ActionBarActivity {
             }
         });
 
-        menu.findItem(R.id.add_product).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                startActivity(new Intent(ProductViewActivity.this, ProductCreationActivity.class));
-                return false;
-            }
-        });
+        if(Helpers.instance.getAccountType(ProductViewActivity.this).equals(Helpers.ACCOUNT_TYPE_PRODUCER)) {
+            menu.findItem(R.id.add_product).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    startActivity(new Intent(ProductViewActivity.this, ProductCreationActivity.class));
+                    return false;
+                }
+            });
+        }
+
+        else{
+            menu.findItem(R.id.add_product).setVisible(false).setEnabled(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
