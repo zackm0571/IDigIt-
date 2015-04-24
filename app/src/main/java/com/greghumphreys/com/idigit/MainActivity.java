@@ -72,16 +72,18 @@ public class MainActivity extends Activity {
                                     helpers.user = user;
 
                                     //Check SharedPreferences if account type (producer / judge) has been selected via boolean flag
-                                    if (!pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)) {
+                                  //  if (!pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)) {
 
                                         //Account type not set, show view to select account type
-                                        setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
 
-                                    } else {
+                                    //Set Account type chooser layout
+                                        setContentView(R.layout.choose_account_type_layout);
+
+                                    //} else {
 
                                         //Account type set, show products / categories
-                                        startActivity(viewProductsIntent);
-                                    }
+
+                                    //}
                                 }
                             } else {
                                 //Initial connection failed, retry after timeout time
@@ -135,18 +137,18 @@ public class MainActivity extends Activity {
 
     }
 
-    public int getInitialView(boolean hasSetAccountType){
-
-        if(!hasSetAccountType){
-            return R.layout.choose_account_type_layout;
-        }
-
-        else {
-            this.finish();
-        }
-
-        return R.layout.activity_main;
-    }
+//    public int getInitialView(boolean hasSetAccountType){
+//
+//        if(!hasSetAccountType){
+//            return R.layout.choose_account_type_layout;
+//        }
+//
+//        else {
+//            this.finish();
+//        }
+//
+//        return R.layout.activity_main;
+//    }
 
 
 }
