@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#44000000">
 
     <TextView
         android:layout_width="match_parent"
@@ -9,6 +10,8 @@
         android:id="@+id/categoryText"
         android:layout_gravity="left|top"
         android:gravity="center_vertical|center_horizontal"
-        android:textColor="#000000"
-        android:hint="category" />
+        android:textColor="#ffd5faff"
+        android:hint="category"
+        android:layout_marginTop="25dp"
+        android:background="#c811232b" />
 </FrameLayout>

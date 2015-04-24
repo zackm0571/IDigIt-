@@ -40,9 +40,6 @@ public class ProductViewActivity extends ActionBarActivity {
         productList = (ListView)findViewById(R.id.listView);
 
         setCategories();
-       // setData();
-      //  this.setListAdapter(new ProductAdapter(this, R.layout.product_detail_view, ));
-
     }
 
 
@@ -101,6 +98,7 @@ public class ProductViewActivity extends ActionBarActivity {
                     productTable.where().field("category").eq(category).execute(new TableQueryCallback<Products>() {
                         @Override
                         public void onCompleted(List<Products> result, int count, Exception exception, ServiceFilterResponse response) {
+
 
                             final List<Products> products = result;
                             runOnUiThread(new Runnable() {
