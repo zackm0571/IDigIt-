@@ -9,6 +9,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
@@ -18,6 +19,8 @@ import com.microsoft.windowsazure.mobileservices.QueryOrder;
 import com.microsoft.windowsazure.mobileservices.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.TableQueryCallback;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -26,6 +29,7 @@ public class ProductViewActivity extends ActionBarActivity {
 
     private MobileServiceTable<Products> productTable;
     private ProductAdapter adapter;
+    private CategoryAdapter categoryAdapter;
     private ListView productList;
 
     @Override
@@ -34,7 +38,9 @@ public class ProductViewActivity extends ActionBarActivity {
         setContentView(R.layout.activity_product_view);
 
         productList = (ListView)findViewById(R.id.listView);
-        setData();
+
+        setCategories();
+       // setData();
       //  this.setListAdapter(new ProductAdapter(this, R.layout.product_detail_view, ));
 
     }
@@ -62,15 +68,26 @@ public class ProductViewActivity extends ActionBarActivity {
     }
 
 
+    protected void setCategories(){
+
+        List<String> categories = Arrays.asList(Helpers.categories);
+        categoryAdapter = new CategoryAdapter(ProductViewActivity.this, R.layout.category_view, categories);
+        productList.setAdapter(categoryAdapter);
+
+        productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setData(Helpers.categories[position]);
+            }
+        });
+    }
 
 
-    protected void setData(){
+    protected void setData(final String category){
         MobileServiceClient client = Helpers.instance.mClient;
 
         productTable = client.getTable(Products.class);
 
-        MobileServiceQuery query = new MobileServiceQuery<>();
-        query.orderBy("_createdAt", QueryOrder.Descending);
 
 
 
@@ -80,7 +97,8 @@ public class ProductViewActivity extends ActionBarActivity {
             protected Void doInBackground(Void... params) {
                 try {
 
-                    productTable.execute(new TableQueryCallback<Products>() {
+
+                    productTable.where().field("category").eq(category).execute(new TableQueryCallback<Products>() {
                         @Override
                         public void onCompleted(List<Products> result, int count, Exception exception, ServiceFilterResponse response) {
 
@@ -89,8 +107,6 @@ public class ProductViewActivity extends ActionBarActivity {
 
                                 @Override
                                 public void run() {
-
-
 
                                     adapter = new ProductAdapter(ProductViewActivity.this,
                                             R.layout.product_detail_view, products);

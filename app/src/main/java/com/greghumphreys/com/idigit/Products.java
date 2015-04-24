@@ -8,6 +8,7 @@ public class Products {
 
     public String Id;
 
+    public String category;
 
     public String productname;
     public String productdescription;

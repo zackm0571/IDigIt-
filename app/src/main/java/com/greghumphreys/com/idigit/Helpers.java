@@ -29,10 +29,30 @@ public class Helpers {
     public static final String NEEDS_WORK = "needswork";
     public static final String SCRAP_IT = "scrapit";
 
+
+    public static final String[] categories = {"Clothing", "Home", "Entertainment", "Game concept", "App concept", "Misc",
+            "Outdoor living", "Technology", "Travel", "Utilities"};
+
+
+
+
     private SharedPreferences pref;
     public MobileServiceUser user;
 
     public MobileServiceClient mClient;
+
+
+    public static final String USERIDPREF = "uid";
+    public static final String TOKENPREF = "tkn";
+
+
+    public void cacheUserToken(MobileServiceUser user, SharedPreferences pref)
+    {
+
+        pref.edit().putString(USERIDPREF, user.getUserId()).commit();
+        pref.edit().putString(TOKENPREF, user.getAuthenticationToken()).commit();
+
+    }
 
     public boolean checkForUserTypeSet(){
         return pref.getBoolean("hasSetAccountType", false);

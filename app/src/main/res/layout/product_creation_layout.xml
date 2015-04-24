@@ -28,36 +28,27 @@
         android:layout_marginLeft="25dp" />
 
     <Button
-        android:layout_width="108dp"
-        android:layout_height="77dp"
-        android:text="Load Product Image"
-        android:id="@+id/loadProductImageButton1"
-        android:layout_gravity="left|center_vertical"
-        android:layout_marginBottom="50dp"
-        android:onClick="setProductImg" />
-
-    <Button
-        android:layout_width="108dp"
-        android:layout_height="77dp"
-        android:text="Load Product Image"
-        android:id="@+id/button"
-        android:layout_gravity="center"
-        android:layout_marginBottom="50dp" />
-
-    <Button
-        android:layout_width="108dp"
-        android:layout_height="77dp"
-        android:text="Load Product Image"
-        android:id="@+id/button2"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginBottom="50dp" />
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit Product"
         android:id="@+id/submitProductButton"
         android:layout_gravity="center_horizontal|bottom"
         android:onClick="submitProduct" />
+
+    <Button
+        android:layout_width="108dp"
+        android:layout_height="77dp"
+        android:text="Load Product Image"
+        android:id="@+id/loadProductImageButton1"
+        android:layout_gravity="center_horizontal|top"
+        android:onClick="setProductImg"
+        android:layout_marginTop="100dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/categoryPicker"
+        android:layout_gravity="center"
+        android:contentDescription="Category" />
 
 </FrameLayout>

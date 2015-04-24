@@ -1,12 +1,15 @@
 package com.greghumphreys.com.idigit;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceAuthenticationProvider;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
@@ -23,6 +26,12 @@ public class MainActivity extends Activity {
 
     private Intent viewProductsIntent;
 
+    private Handler retryLogin = new Handler();
+
+    private Runnable runLogin;
+
+
+    long loginTimeOut = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,29 +47,55 @@ public class MainActivity extends Activity {
     }
 
 
+    private boolean loadUserTokenCache(MobileServiceClient client)
+    {
 
-    public void login(MobileServiceClient client){
+        String userId = pref.getString(Helpers.USERIDPREF, "undefined");
+        if (userId == "undefined")
+            return false;
+        String token = pref.getString(Helpers.TOKENPREF, "undefined");
+        if (token == "undefined")
+            return false;
+
+        MobileServiceUser user = new MobileServiceUser(userId);
+        user.setAuthenticationToken(token);
+        client.setCurrentUser(user);
+
+        return true;
+    }
+    public void login(final MobileServiceClient client){
 
         if(client != null){
-
-            client.login(MobileServiceAuthenticationProvider.MicrosoftAccount, new UserAuthenticationCallback() {
+           runLogin = new Runnable() {
                 @Override
-                public void onCompleted(MobileServiceUser user, Exception exception, ServiceFilterResponse response) {
-                    if(user != null){
-                        helpers.user = user;
+                public void run() {
+                    client.login(MobileServiceAuthenticationProvider.MicrosoftAccount, new UserAuthenticationCallback() {
+                        @Override
+                        public void onCompleted(MobileServiceUser user, Exception exception, ServiceFilterResponse response) {
 
-                        if(!pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)){
-                            setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
+                            if (exception == null) {
+                                if (user != null) {
+                                    helpers.user = user;
 
+
+                                    if (!pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)) {
+                                        setContentView(getInitialView(pref.getBoolean(Helpers.ACCOUNT_TYPE_SELECTED_ID, false)));
+
+                                    } else {
+                                        startActivity(viewProductsIntent);
+                                    }
+                                }
+                            } else {
+                                Toast.makeText(MainActivity.this, "Connection failed: retrying", Toast.LENGTH_LONG).show();
+                                retryLogin.postDelayed(runLogin, loginTimeOut);
+
+                            }
                         }
-                        else {
-                            startActivity(viewProductsIntent);
-                        }
-
-
-                    }
+                    });
                 }
-            });
+            };
+            retryLogin.postDelayed(runLogin, loginTimeOut);
+
         }
     }
     public void initAzureClient(){

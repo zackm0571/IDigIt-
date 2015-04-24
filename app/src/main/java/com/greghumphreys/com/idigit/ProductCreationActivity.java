@@ -2,6 +2,7 @@ package com.greghumphreys.com.idigit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,8 +12,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
@@ -25,6 +30,10 @@ public class ProductCreationActivity extends Activity {
 
 
     EditText productTitle, productDescription;
+
+    Spinner categoryPicker;
+
+    SpinnerAdapter spinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +41,14 @@ public class ProductCreationActivity extends Activity {
 
         productTitle = (EditText)findViewById(R.id.productTitleText);
         productDescription = (EditText)findViewById(R.id.productDescriptionText);
+
+
+
+        categoryPicker = (Spinner)findViewById(R.id.categoryPicker);
+        ArrayAdapter<String> a =new ArrayAdapter<String>(ProductCreationActivity.this,android.R.layout.simple_spinner_item, Helpers.categories);
+        a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoryPicker.setAdapter(a);
+
     }
 
 
@@ -43,6 +60,7 @@ public class ProductCreationActivity extends Activity {
         Products product = new Products();
         product.productname = productTitle.getText().toString();
         product.productdescription = productDescription.getText().toString();
+        product.category = categoryPicker.getSelectedItem().toString();
 
         client.getTable(Products.class).insert(product, new TableOperationCallback<Products>() {
             @Override
