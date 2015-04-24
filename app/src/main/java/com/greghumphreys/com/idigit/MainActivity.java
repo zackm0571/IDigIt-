@@ -45,7 +45,14 @@ public class MainActivity extends Activity {
         /** initialize view product intent (format: SenderActivity.this, NewActivity.class **/
         viewProductsIntent = new Intent(MainActivity.this, ProductViewActivity.class);
 
-        initAzureClient(); //initialize Azure client and handle auth flow
+
+        if(Helpers.instance.user == null) {
+            initAzureClient(); //initialize Azure client and handle auth flow
+        }
+
+        else{
+            setContentView(R.layout.choose_account_type_layout);
+        }
   }
 
 
@@ -54,6 +61,7 @@ public class MainActivity extends Activity {
 
         //check for valid client
         if(client != null){
+
 
             //try login
            runLogin = new Runnable() {

@@ -66,6 +66,9 @@ public class ProductViewActivity extends ActionBarActivity {
                 if(CURRENT_VIEW.equals(VIEW_PRODUCTS)){
                     setCategories();
                 }
+                else{
+                    startActivity(new Intent(ProductViewActivity.this, MainActivity.class));
+                }
 
                 return false;
             }
