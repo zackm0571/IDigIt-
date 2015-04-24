@@ -90,13 +90,16 @@ public class ProductAdapter extends ArrayAdapter<Products>{
 
         if(Helpers.instance.getAccountType(context).equals(Helpers.ACCOUNT_TYPE_PRODUCER)){
             digit.setEnabled(false);
-            digit.setVisibility(View.INVISIBLE);
+
+           // digit.setVisibility(View.INVISIBLE);
 
             needsWork.setEnabled(false);
-            needsWork.setVisibility(View.INVISIBLE);
+
+            //needsWork.setVisibility(View.INVISIBLE);
 
             scrapit.setEnabled(false);
-            scrapit.setVisibility(View.INVISIBLE);
+
+            //scrapit.setVisibility(View.INVISIBLE);
         }
 
         final int pos = position;
