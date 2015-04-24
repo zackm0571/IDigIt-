@@ -45,7 +45,14 @@ public class ProductViewActivity extends ActionBarActivity {
         productList = (ListView)findViewById(R.id.listView);
 
         getSupportActionBar().show();
-        setCategories();
+
+        if(Helpers.instance.getAccountType(ProductViewActivity.this).equals(Helpers.ACCOUNT_TYPE_JUDGER)) {
+            setCategories();
+        }
+
+        else{
+            setData("");
+        }
     }
 
 
@@ -63,7 +70,7 @@ public class ProductViewActivity extends ActionBarActivity {
         menu.findItem(R.id.back_to_categories).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(CURRENT_VIEW.equals(VIEW_PRODUCTS)){
+                if(CURRENT_VIEW.equals(VIEW_PRODUCTS) && Helpers.instance.getAccountType(ProductViewActivity.this).equals(Helpers.ACCOUNT_TYPE_JUDGER)){
                     setCategories();
                 }
                 else{
@@ -117,8 +124,10 @@ public class ProductViewActivity extends ActionBarActivity {
             protected Void doInBackground(Void... params) {
                 try {
 
+                    MobileServiceQuery<TableQueryCallback<Products>> query;
 
-                    productTable.where().field("category").eq(category).execute(new TableQueryCallback<Products>() {
+
+                    TableQueryCallback<Products> callback = new TableQueryCallback<Products>() {
                         @Override
                         public void onCompleted(List<Products> result, int count, Exception exception, ServiceFilterResponse response) {
 
@@ -139,8 +148,16 @@ public class ProductViewActivity extends ActionBarActivity {
                                 }
                             });
                         }
-                    });
+                    };
 
+
+                    if(Helpers.instance.getSharedPref(ProductViewActivity.this).getString(Helpers.ACCOUNT_TYPE_ID, "").equals(Helpers.ACCOUNT_TYPE_JUDGER)) {
+                        productTable.where().field("category").eq(category).execute(callback);
+                       }
+
+                    else{
+                        productTable.where().field("userid").eq(Helpers.instance.user.getUserId()).execute(callback);
+                    }
                 } catch (Exception exception) {
 
                 }
@@ -149,6 +166,10 @@ public class ProductViewActivity extends ActionBarActivity {
         }.execute();
 
 
+
+
+        }
     }
 
-}
+
+

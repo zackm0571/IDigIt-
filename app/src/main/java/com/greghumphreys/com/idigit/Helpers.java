@@ -55,4 +55,8 @@ public class Helpers {
         return pref;
     }
 
+    public String getAccountType(Context context){
+        return getSharedPref(context).getString(Helpers.ACCOUNT_TYPE_ID, "null");
+    }
+
 }

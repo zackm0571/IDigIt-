@@ -13,6 +13,7 @@ public class Products {
     public String productname;
     public String productdescription;
 
+    public String userid;
 
     public int digs=0;
     public int needsworks=0;

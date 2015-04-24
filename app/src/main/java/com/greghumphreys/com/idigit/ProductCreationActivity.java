@@ -65,7 +65,7 @@ public class ProductCreationActivity extends Activity {
         product.productname = productTitle.getText().toString();
         product.productdescription = productDescription.getText().toString();
         product.category = categoryPicker.getSelectedItem().toString();
-
+        product.userid = Helpers.instance.user.getUserId();
 
         //Get table and insert with callback
         client.getTable(Products.class).insert(product, new TableOperationCallback<Products>() {
