@@ -68,7 +68,7 @@ public class ProductAdapter extends ArrayAdapter<Products>{
         TextView titleText = (TextView)view.findViewById(R.id.productViewTitle);
         TextView descriptionText = (TextView)view.findViewById(R.id.productViewDescription);
 
-        Products product = objects.get(position);
+        final Products product = objects.get(position);
 
         //Map data to UI
         titleText.setText(product.productname);
@@ -95,7 +95,11 @@ public class ProductAdapter extends ArrayAdapter<Products>{
         digit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onProductRatedClick(Helpers.I_DIG_IT, pos);
+                product.digs++;
+                ((Button)v).setText("I DIG IT (" + product.digs + ")");
+                productTable.update(product, null);
+
+
             }
         });
 
@@ -103,14 +107,24 @@ public class ProductAdapter extends ArrayAdapter<Products>{
         needsWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onProductRatedClick(Helpers.NEEDS_WORK, pos);
+
+                product.needsworks++;
+                ((Button)v).setText("NEEDS WORK (" +product.needsworks +")");
+                productTable.update(product, null);
+
+
             }
         });
 
         scrapit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onProductRatedClick(Helpers.SCRAP_IT, pos);
+
+                product.scraps++;
+                ((Button)v).setText("SCRAP IT (" + product.scraps +")");
+                productTable.update(product, null);
+             
+
             }
         });
         return view;
@@ -130,21 +144,21 @@ public class ProductAdapter extends ArrayAdapter<Products>{
                 try {
 
                     //Increment respective operation on product and then push update to Azure table
-                    Products product = objects.get(index);
-                    if(operation.equals(Helpers.I_DIG_IT)){
-                        product.digs++;
-                    }
+//                    Products product = objects.get(index);
+//                    if(operation.equals(Helpers.I_DIG_IT)){
+//                        product.digs++;
+//                    }
+//
+//                    else if(operation.equals(Helpers.NEEDS_WORK)){
+//                        product.needsworks++;
+//                    }
+//
+//                    else if(operation.equals(Helpers.SCRAP_IT)){
+//                        product.scraps++;
+//                    }
 
-                    else if(operation.equals(Helpers.NEEDS_WORK)){
-                        product.needsworks++;
-                    }
 
-                    else if(operation.equals(Helpers.SCRAP_IT)){
-                        product.scraps++;
-                    }
-
-
-                    productTable.update(product, null);
+                 //   productTable.update(product, null);
 
                 } catch (Exception exception) {
 
